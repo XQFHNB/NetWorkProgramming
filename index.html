@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Networkprogramming by XQFHNB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Networkprogramming</h1>
+      <h2 class="project-tagline">ExamplesOfJavaNetWorkProgramming</h2>
+      <a href="https://github.com/XQFHNB/NetWorkProgramming" class="btn">View on GitHub</a>
+      <a href="https://github.com/XQFHNB/NetWorkProgramming/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/XQFHNB/NetWorkProgramming/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="网络编程技术" class="anchor" href="#%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>网络编程技术</h1>
+
+<p>标签（空格分隔）： java</p>
+
+<hr>
+
+<p>[TOC]</p>
+
+<h2>
+<a id="一网络通信基础" class="anchor" href="#%E4%B8%80%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>一.网络通信基础</h2>
+
+<p>基本知识包括网络通信中的通信协议，IP地址，端口号，TCP协议，UDP协议以及网络程序设计的基本框架。</p>
+
+<h3>
+<a id="1基本概念" class="anchor" href="#1%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.基本概念</h3>
+
+<p><strong>计算机网络：</strong></p>
+
+<blockquote>
+<p>指通过各种通信设备连接起来的，支持特定网络通信协议的，许许多多的计算机通信或计算机系统的集合</p>
+</blockquote>
+
+<p><strong>网络通信：</strong></p>
+
+<blockquote>
+<p>指网络中的计算机通过网络互相传递信息</p>
+</blockquote>
+
+<p><strong>通信协议：</strong></p>
+
+<blockquote>
+<p>是网络通信的基础，是网络中计算机之间进行通信时共同遵守的规则。不同的通信协议用不同的方法解决不同类型的通信问题。</p>
+</blockquote>
+
+<p>为了实现网络上不同机器之间的通信，必须知道对方主机的地址和端口号</p>
+
+<h4>
+<a id="aip地址" class="anchor" href="#aip%E5%9C%B0%E5%9D%80" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>a.IP地址</h4>
+
+<p>IP地址是计算机网络中任意一台计算机地址的唯一标识符，知道了网络中某一主机的IP地址，就可以定位这一台计算机。IPv4 32位，IPv6 128位。</p>
+
+<h4>
+<a id="b域名地址" class="anchor" href="#b%E5%9F%9F%E5%90%8D%E5%9C%B0%E5%9D%80" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>b.域名地址</h4>
+
+<p>这个就是主机的IP地址用纯数字表示的话不容易记忆，于是在IP地址上加上一个容易记忆的域名，网络中的域名解析器会将域名解析为IP地址。</p>
+
+<h4>
+<a id="c端口号" class="anchor" href="#c%E7%AB%AF%E5%8F%A3%E5%8F%B7" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>c.端口号</h4>
+
+<p>主机上有多个进程，这些进程都可以和其他计算机进行通信，准确的说，计算机之间的通信其实就是进程与进程之间的通信。主机名和端口的组合能唯一确定网络通信的主体----进程。而端口是网络通信过程中不同进程的唯一标识。</p>
+
+<h3>
+<a id="2通信协议" class="anchor" href="#2%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.通信协议</h3>
+
+<p>TCP和UDP是两种在网络通信中使用最多的通信协议。</p>
+
+<h4>
+<a id="atcptransfer-control-protocol协议" class="anchor" href="#atcptransfer-control-protocol%E5%8D%8F%E8%AE%AE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>a.TCP（Transfer Control Protocol)协议</h4>
+
+<p><strong>是一种面向连接的，可以提供可靠传输的通信协议</strong>，意思就是TCP就是打电话，先要哦把电话拨通建立连接，然后可以肆无忌惮的谈话（传输信息），可靠性体现在对面发什么，我就接收什么。还是可以用电话类比。</p>
+
+<h4>
+<a id="budpuser-datagram-protocol协议" class="anchor" href="#budpuser-datagram-protocol%E5%8D%8F%E8%AE%AE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>b.UDP(User Datagram Protocol)协议</h4>
+
+<p>UDP是一种无连接的协议，传输的是一种独立的数据报。每个数据报都是独立的信息，包括完整的源地址和目的地址。UDP是有大小限制的，最大64kb.因此数据可以划分为多个数据报，每个数据报都有源地址和目的地址，假设数据报的目的地址都相同，因此每个数据报的路径可以不同。</p>
+
+<h4>
+<a id="c两种协议的比较" class="anchor" href="#c%E4%B8%A4%E7%A7%8D%E5%8D%8F%E8%AE%AE%E7%9A%84%E6%AF%94%E8%BE%83" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>c.两种协议的比较</h4>
+
+<ol>
+<li>UDP无连接，TCP必须要先建立连接</li>
+<li>UDP传输数据大小有限制,TCP没有，一旦连接建立起来就按统一的格式随便跑了</li>
+<li>UDP传输协议不可靠，数据报顺序不唯一，还可能丢失。TCP可靠</li>
+</ol>
+
+<h3>
+<a id="3java网络编程技术" class="anchor" href="#3java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.Java网络编程技术</h3>
+
+<p>提供了用于网络通信的java.net包。包含了多种用于各种标准网络通信协议的类和接口。大致通过以下三种方式实现网络程序设计：</p>
+
+<h4>
+<a id="aurl编程技术" class="anchor" href="#aurl%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>a.URL编程技术</h4>
+
+<p>URL表示Internet上的某个资源的地址，支持ftp,http,file等多种协议，通过URL标识就可以获取远端计算机上的资源。这应该就是B/S模式。浏览器/服务器模式。通常我们抓取网页就是这个实现。</p>
+
+<h4>
+<a id="btcp编程技术" class="anchor" href="#btcp%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>b.TCP编程技术</h4>
+
+<p>TCP是可靠的连接通信技术，主要使用套接字（Socket)机制。Socket是TCP/IP协议中的传输层接口，<strong>是实现C/S模式的主要方式</strong></p>
+
+<h4>
+<a id="cudp编程技术" class="anchor" href="#cudp%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>c.UDP编程技术</h4>
+
+<p>UDP是无连接的快速通信技术，数据报是一种在网络上传播的，独立的，自包含地址的格式化信息。<strong>主要用于传输数据量大，非关键性数据</strong></p>
+
+<blockquote>
+<p>有的时候真的要跳出来总结一下。。。狭义的理解通信，，。不是两个主机之间发短信，只要两者之间有信息流动就算是通信，即使有时候是单向的。单相思也是爱情，至少对于一方来说是，一个人的战斗。</p>
+</blockquote>
+
+<h2>
+<a id="二url程序设计" class="anchor" href="#%E4%BA%8Curl%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>二.URL程序设计</h2>
+
+<p>java.net中的URL类是对统一资源定位符（Uniform Resource Locator)的抽象，使用URL创建对象的程序称为客户端程序，一个URL对象存放着一个具体的资源引用，表明客户要访问的这个URL的资源，利用URL对象来访问URL中资源。
+<strong>包含三部分信息：</strong></p>
+
+<ol>
+<li>协议</li>
+<li>地址</li>
+<li>资源</li>
+</ol>
+
+<h3>
+<a id="1url" class="anchor" href="#1url" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.URL</h3>
+
+<h4>
+<a id="aurl格式" class="anchor" href="#aurl%E6%A0%BC%E5%BC%8F" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>a.URL格式</h4>
+
+<div class="highlight highlight-source-java"><pre>传输协议名：<span class="pl-c">//主机名：端口号/文件名#引用</span></pre></div>
+
+<p>例如合法的URL:</p>
+
+<div class="highlight highlight-source-java"><pre>
+http<span class="pl-k">:</span><span class="pl-c">//java.sun.com/index.html</span>
+http<span class="pl-k">:</span><span class="pl-c">//java.sun.com/index.html#chapter1</span>
+http<span class="pl-k">:</span><span class="pl-c">//192.168.0.7:7001</span>
+http<span class="pl-k">:</span><span class="pl-c">//192.168.0.7:7001/port/index.html#myedu</span>
+
+</pre></div>
+
+<h4>
+<a id="burl类" class="anchor" href="#burl%E7%B1%BB" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>b.URL类</h4>
+
+<p><strong>常用的构造方法：</strong></p>
+
+<ol>
+<li>
+<code>URL(String spec):</code>根据指定的字符串创建URL对象，如果字符串里指定了未知协议，则抛出MalfromedURLException异常</li>
+<li>
+<code>URL（String protocol,String host,String file)</code>:根据参数构造URL</li>
+<li>
+<code>URL（String protocol,String host,int port,String file)</code>：不解释了</li>
+</ol>
+
+<p><strong>常用的成员方法：</strong>
+ <img src="http://static.zybuluo.com/XQF/nglnxi53v3llyyfgazh2zcy4/image_1b318pgnmek7kds1naf3ms1hrb9.png" alt="image_1b318pgnmek7kds1naf3ms1hrb9.png-30.2kB">
+<img src="http://static.zybuluo.com/XQF/u33xt05528oqddc8ugscim4r/image_1b318qijg1h3spq61eh1oo47arm.png" alt="image_1b318qijg1h3spq61eh1oo47arm.png-46.5kB"></p>
+
+<p>实例：</p>
+
+<div class="highlight highlight-source-java"><pre>
+<span class="pl-c">/**</span>
+<span class="pl-c"> * Created by XQF on 2016/12/3.</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">URLTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">String</span> <span class="pl-c1">URL_STRING</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>http://www.baidu.com/index.html<span class="pl-pds">"</span></span>;
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">main</span>(<span class="pl-k">String</span>[] <span class="pl-v">args</span>) <span class="pl-k">throws</span> <span class="pl-smi">IOException</span> {
+        <span class="pl-smi">URL</span> url<span class="pl-k">=</span> <span class="pl-c1">null</span>;
+        <span class="pl-k">try</span> {
+            url <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">URL</span>(<span class="pl-c1">URL_STRING</span>);
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>协议：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> url<span class="pl-k">.</span>getProtocol());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>主机：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> url<span class="pl-k">.</span>getHost());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>端口：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> url<span class="pl-k">.</span>getPort());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>路径：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> url<span class="pl-k">.</span>getPath());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>文件：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> url<span class="pl-k">.</span>getFile());
+            <span class="pl-smi">String</span> string;
+            <span class="pl-smi">StringBuffer</span> sb <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>();
+            <span class="pl-smi">InputStreamReader</span> is<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-smi">InputStreamReader</span>(url<span class="pl-k">.</span>openStream());
+            <span class="pl-smi">BufferedReader</span> br<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-smi">BufferedReader</span>(is);
+            <span class="pl-k">while</span>((string<span class="pl-k">=</span>br<span class="pl-k">.</span>readLine())<span class="pl-k">!=</span><span class="pl-c1">null</span>){
+                sb<span class="pl-k">.</span>append(string);
+            }
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(sb<span class="pl-k">.</span>toString());
+        } <span class="pl-k">catch</span> (<span class="pl-smi">MalformedURLException</span> e) {
+            e<span class="pl-k">.</span>printStackTrace();
+        }
+    }
+}
+</pre></div>
+
+<h4>
+<a id="curlconnection" class="anchor" href="#curlconnection" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>c.URLConnection</h4>
+
+<p>主要用于应用程序和URL之间的连接，应用程序通过URLConnection可以获得URL对象的有关信息，是所有URL连接通信类的父类。该类的对象可以读写URL对象所代表的internet上的数据。
+<strong>建立连接的步骤：</strong></p>
+
+<ol>
+<li>在URL上调用openConnection()方法创建连接对象</li>
+<li>处理设置参数和一般请求属性</li>
+<li>使用connect方法建立到远程对象的实际连接</li>
+<li>远程对象变为可用，远程对象的头字段和内容变为可访问</li>
+</ol>
+
+<p><strong>常用字段</strong></p>
+
+<ol>
+<li>connected;表示连接状态，true表示建立了通信连接，false表示此连接对象尚未创建连接</li>
+<li>url：表示此链接要在互联网上打开的远程对象</li>
+</ol>
+
+<p><strong>构造方法</strong></p>
+
+<ol>
+<li>URLConnection(URL url)</li>
+</ol>
+
+<p><strong>主要成员方法：</strong></p>
+
+<ol>
+<li>
+<code>Object getContent():</code>获取此链接的内容</li>
+<li>
+<code>String getContentEncoding()</code>：获取资源内容编码</li>
+<li>
+<code>int getContentLength()</code>:获取资源内容长度</li>
+<li>
+<code>String getContentType()</code>:资源内容类型</li>
+<li>
+<code>URL getURL()</code>:返回URLConnection的url字段的值</li>
+<li>
+<code>InputStream getInputStream()</code>:打开连接数据的输入流</li>
+<li>
+<code>OutputStream getOutputStream()</code>:打开链接数据的输出流</li>
+<li>
+<p><code>public void setConnectTimeout(int timeout)</code>:设置超时值</p>
+
+<p>实例：</p>
+
+<div class="highlight highlight-source-java"><pre>
+<span class="pl-c">/**</span>
+<span class="pl-c">* Created by XQF on 2016/12/3.</span>
+<span class="pl-c">*/</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">URLConnectionTest</span> {
+<span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">String</span> <span class="pl-c1">URL_STRING</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>http://www.baidu.com/index.html<span class="pl-pds">"</span></span>;
+
+<span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">main</span>(<span class="pl-k">String</span>[] <span class="pl-v">args</span>) {
+    <span class="pl-smi">URL</span> url <span class="pl-k">=</span> <span class="pl-c1">null</span>;
+    <span class="pl-k">try</span> {
+        url <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">URL</span>(<span class="pl-c1">URL_STRING</span>);
+        <span class="pl-smi">URLConnection</span> connection <span class="pl-k">=</span> url<span class="pl-k">.</span>openConnection();
+        <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>文件类型：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> connection<span class="pl-k">.</span>getContentType());
+        <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>文件长度：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> connection<span class="pl-k">.</span>getContentLength());
+        <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>文件内容：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> connection<span class="pl-k">.</span>getContent());
+        <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>-----------------------------------------------------<span class="pl-pds">"</span></span>);
+        ;
+        <span class="pl-smi">String</span> string;
+        <span class="pl-smi">StringBuffer</span> sb <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">StringBuffer</span>();
+        <span class="pl-smi">BufferedReader</span> br <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">BufferedReader</span>(<span class="pl-k">new</span> <span class="pl-smi">InputStreamReader</span>(connection<span class="pl-k">.</span>getInputStream()));
+        <span class="pl-k">while</span> ((string <span class="pl-k">=</span> br<span class="pl-k">.</span>readLine()) <span class="pl-k">!=</span> <span class="pl-c1">null</span>) {
+            sb<span class="pl-k">.</span>append(string);
+        }
+        <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(sb<span class="pl-k">.</span>toString());
+    } <span class="pl-k">catch</span> (<span class="pl-smi">MalformedURLException</span> e) {
+        e<span class="pl-k">.</span>printStackTrace();
+    } <span class="pl-k">catch</span> (<span class="pl-smi">IOException</span> e) {
+        e<span class="pl-k">.</span>printStackTrace();
+    }
+}
+}
+]s</pre></div>
+</li>
+</ol>
+
+<blockquote>
+<p>返回的文件内容并不是文件的真实内容。判断是否读完的条件为是否读到了“-1”，或者用“InputStreamReader.available()&gt;0”来判断是否全部读完</p>
+</blockquote>
+
+<h4>
+<a id="cinetaddress" class="anchor" href="#cinetaddress" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>c.InetAddress</h4>
+
+<p>在互联网上表示一个主机的地址有两种方式，域名地址和IP地址，InetAddress类就是用来表示主机地址的。</p>
+
+<p>常用成员方法：</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">static</span> <span class="pl-smi">InetAddress</span> getByAddress(<span class="pl-k">byte</span> []addr)
+<span class="pl-k">static</span> <span class="pl-smi">InetAddress</span> getByAddress(<span class="pl-smi">String</span> host,<span class="pl-k">byte</span>[] addr)<span class="pl-k">:</span>host可以是任何主机描述
+<span class="pl-k">static</span> <span class="pl-smi">InetAddress</span> getByName(<span class="pl-smi">String</span> host)<span class="pl-k">:</span>给定主机名
+<span class="pl-k">static</span> <span class="pl-smi">InetAddress</span> getLocalHost()<span class="pl-k">:</span>返回本地主机
+<span class="pl-smi">String</span> getHostName()<span class="pl-k">:</span>返回主机名（域名）
+<span class="pl-smi">String</span> getHostAddress()<span class="pl-k">:</span>返回主机地址<span class="pl-c1">IP</span>地址
+<span class="pl-k">boolean</span> isReachable(<span class="pl-k">int</span> timeout)<span class="pl-k">:</span>测试是否可以到达
+<span class="pl-smi">String</span> toString();主机地址的字符串表示（域名<span class="pl-k">/</span><span class="pl-c1">IP</span>)
+<span class="pl-k">boolean</span> isMulticastAddress();检测是否为多播地址
+<span class="pl-k">byte</span> [] getAddress()<span class="pl-k">:</span>返回<span class="pl-smi">InetAddress</span>的原始<span class="pl-c1">IP</span>
+</pre></div>
+
+<p>实例：</p>
+
+<div class="highlight highlight-source-java"><pre>
+<span class="pl-c">/**</span>
+<span class="pl-c"> * Created by XQF on 2016/12/3.</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">InetAddressTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">main</span>(<span class="pl-k">String</span>[] <span class="pl-v">args</span>) {
+        <span class="pl-k">try</span> {
+            <span class="pl-c">//获取给定域名的地址</span>
+            <span class="pl-smi">InetAddress</span> inetAddress1 <span class="pl-k">=</span> <span class="pl-c1">null</span>;
+            inetAddress1 <span class="pl-k">=</span> <span class="pl-smi">InetAddress</span><span class="pl-k">.</span>getByName(<span class="pl-s"><span class="pl-pds">"</span>www.baidu.com<span class="pl-pds">"</span></span>);
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>-----------------------------------------------------<span class="pl-pds">"</span></span>);
+
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(inetAddress1<span class="pl-k">.</span>getHostName());<span class="pl-c">//显示主机名</span>
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(inetAddress1<span class="pl-k">.</span>getHostAddress());<span class="pl-c">//显示IP地址</span>
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(inetAddress1);<span class="pl-c">//显示地址的字符串描述</span>
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>-----------------------------------------------------<span class="pl-pds">"</span></span>);
+
+            <span class="pl-c">//获取本机的地址</span>
+            <span class="pl-smi">InetAddress</span> inetAddress2 <span class="pl-k">=</span> <span class="pl-smi">InetAddress</span><span class="pl-k">.</span>getLocalHost();
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(inetAddress2<span class="pl-k">.</span>getHostName());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(inetAddress2<span class="pl-k">.</span>getHostAddress());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(inetAddress2);
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>-----------------------------------------------------<span class="pl-pds">"</span></span>);
+
+            <span class="pl-c">//获取给定IP的主机的地址（72.5.124.55</span>
+            <span class="pl-k">byte</span>[] bytes <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">byte</span>[]{(<span class="pl-k">byte</span>) <span class="pl-c1">72</span>, (<span class="pl-k">byte</span>) <span class="pl-c1">5</span>, (<span class="pl-k">byte</span>) <span class="pl-c1">124</span>, (<span class="pl-k">byte</span>) <span class="pl-c1">55</span>};
+            <span class="pl-smi">InetAddress</span> inetAddress3 <span class="pl-k">=</span> <span class="pl-smi">InetAddress</span><span class="pl-k">.</span>getByAddress(bytes);
+            <span class="pl-smi">InetAddress</span> inetAddress4 <span class="pl-k">=</span> <span class="pl-smi">InetAddress</span><span class="pl-k">.</span>getByAddress(<span class="pl-s"><span class="pl-pds">"</span>Sun 官方网站 21(java.sun.com)<span class="pl-pds">"</span></span>, bytes);
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(inetAddress3);
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(inetAddress4);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">UnknownHostException</span> e) {
+            e<span class="pl-k">.</span>printStackTrace();
+        }
+
+
+    }
+}
+</pre></div>
+
+<h2>
+<a id="三tcp程序设计" class="anchor" href="#%E4%B8%89tcp%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>三.TCP程序设计</h2>
+
+<p>TCP/IP套机字用于在主机和Internet之间建立可靠的，双向的，持续的，点对点的流式连接。</p>
+
+<h3>
+<a id="1网络套接字" class="anchor" href="#1%E7%BD%91%E7%BB%9C%E5%A5%97%E6%8E%A5%E5%AD%97" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.网络套接字</h3>
+
+<p>套接字是一个用于端点连接和数据交换的对象，一个套接字由IP地址和端口号唯一确定。网络的每一个端点都可以通过和连接绑定的套接字对象交换数据。在C/S模式下，按照套接字在网络中的作用不同，分为客户机端套接字和服务器端套接字</p>
+
+<p><strong>服务器端套接字SeverSocket</strong></p>
+
+<blockquote>
+<p>始终在监听是否有连接请求，有请求并且被接受，SeverSocket向客户机发回“接收”消息，两个socket之间的连接就建立了</p>
+</blockquote>
+
+<p><strong>客户端套接字Socket</strong></p>
+
+<blockquote>
+<p>建立一个和服务器的连接，需要知道服务器端提供的主机名和提供服务的端口号。</p>
+</blockquote>
+
+<p><strong>所以套接字关键部分就是建立连接，建立连接的过程为客户机发送请求，服务器监听到请求，接收请求后向客户机返回“接收”的消息，这个连接就建立好了，相当于是电话线扯好了大，接下来就是传送了</strong></p>
+
+<p><strong>数据传送工作过程的具体操作：</strong></p>
+
+<ol>
+<li>创建Socket对象</li>
+<li>打开连接到Socket对象的输入输出流</li>
+<li>按照一定的协议对Socket对象进行读和写操作</li>
+<li>关闭Socket对象（即关闭Socket对象绑定的连接）</li>
+<li>注意在这个过程中出现的各种异常，最最常见的就是在未启动服务器的情况下就打开客户机请求数据。</li>
+</ol>
+
+<h3>
+<a id="2socket" class="anchor" href="#2socket" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.Socket</h3>
+
+<p><strong>常用构造方法：</strong></p>
+
+<div class="highlight highlight-source-java"><pre>Socket(<span class="pl-smi">InetAddress</span> address,<span class="pl-k">int</span> port)
+Scoket(<span class="pl-smi">String</span> host,<span class="pl-k">int</span> port)
+<span class="pl-c">//实例</span>
+<span class="pl-smi">Socket</span> mySocket<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-smi">Socket</span>(<span class="pl-s"><span class="pl-pds">"</span>218.198.118.112<span class="pl-pds">"</span></span>,<span class="pl-c1">2010</span>)</pre></div>
+
+<blockquote>
+<p>每一个端口提供一个特殊服务，只有正确给出端口，才能获得相应的服务。http-&gt;80,ftp-&gt;23.<strong>0-1023是系统保留端口，自己设置端口号时，尽量大于1023的端口号</strong></p>
+</blockquote>
+
+<p><strong>常用的成员方法：</strong></p>
+
+<div class="highlight highlight-source-java"><pre>
+<span class="pl-smi">InetAddress</span> getInetAddress()<span class="pl-k">:</span>餈�憟摮��亦��啣�
+<span class="pl-smi">InetAddress</span> getLocalAddress()<span class="pl-k">:</span>�瑕�憟摮�摰��砍�啣�
+<span class="pl-k">int</span> getLocalPort();�瑕�憟摮�摰��砍蝡臬
+<span class="pl-smi">SocketAddress</span> getLocalSocketAddress()<span class="pl-k">:</span>餈�憟摮�摰�蝡舐��嚗瘝⊥�蝏�餈�<span class="pl-c1">ull</span>
+<span class="pl-smi">InputStream</span> getInputStream()<span class="pl-k">:</span>餈�憟摮�颲瘚�
+<span class="pl-smi">OutputStream</span> getOutputStream()<span class="pl-k">:</span>餈�憟摮�颲liu
+<span class="pl-k">int</span> getPort()<span class="pl-k">:</span>餈�餈�啁�餈�蝡臬
+<span class="pl-k">boolean</span> isBound()<span class="pl-k">:</span>餈�蝏��嗆�
+<span class="pl-k">boolean</span> isClosed()<span class="pl-k">:</span>餈��喲�嗆�
+<span class="pl-k">boolean</span> isConnected()<span class="pl-k">:</span>餈�憟摮�餈�嗆�
+<span class="pl-k">void</span> connect(<span class="pl-smi">SocketAddress</span> endpoint,<span class="pl-k">int</span> timeout)<span class="pl-k">:</span>�暹�唳��∪撟嗉挽蝵株��嗅�</pre></div>
+
+<p>实例：</p>
+
+<div class="highlight highlight-source-java"><pre>
+<span class="pl-c">/**</span>
+<span class="pl-c"> * Created by XQF on 2016/12/3.</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">SocketTest</span> {
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">main</span>(<span class="pl-k">String</span>[] <span class="pl-v">args</span>) {
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">Socket</span> socket <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Socket</span>(<span class="pl-s"><span class="pl-pds">"</span>218.198.118.103<span class="pl-pds">"</span></span>, <span class="pl-c1">80</span>);
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>是否绑定连接：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> socket<span class="pl-k">.</span>isBound());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>本地端口:<span class="pl-pds">"</span></span> <span class="pl-k">+</span> socket<span class="pl-k">.</span>getLocalPort());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>连接服务器的端口：<span class="pl-pds">"</span></span><span class="pl-k">+</span>socket<span class="pl-k">.</span>getPort());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>连接服务器的地址:<span class="pl-pds">"</span></span> <span class="pl-k">+</span> socket<span class="pl-k">.</span>getInetAddress());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>连接远程服务的套接字：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> socket<span class="pl-k">.</span>getRemoteSocketAddress());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>是否处于连接状态：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> socket<span class="pl-k">.</span>isConnected());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>客户套接详情：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> socket<span class="pl-k">.</span>toString());
+        } <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> e) {
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>服务器没有启动！<span class="pl-pds">"</span></span>);
+        }
+    }
+}
+</pre></div>
+
+<h3>
+<a id="3socketsever" class="anchor" href="#3socketsever" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.SocketSever</h3>
+
+<p><strong>常用构造方法：</strong></p>
+
+<ol>
+<li>SeverSocket()</li>
+<li>SeverSocket(int port)</li>
+<li>SeverSocket(int port,int backlog)</li>
+<li>SeverSocket(int port,int backlog,InetAddress bindAddr)</li>
+</ol>
+
+<p>其中port可以为0，表示任何空闲端口
+backlog指定了服务器所能支持的最长连接队列，如果队列满了则拒绝该连接
+bindAddr是要将服务器绑定到的InetAddress，bindAddr参数可以在SeverSocket的多宿主主机上使用，SeverSocket仅接收对其地址之一的连接请求，如果bindAddr为null,则默认接受任何所有本地地址上的连接</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">SeverSocket</span> severSocket<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-smi">SeverSocket</span>(<span class="pl-c1">2010</span>);
+<span class="pl-smi">SeverSocket</span> severSocket<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-smi">SeverSocket</span>(<span class="pl-c1">2010</span>,<span class="pl-c1">10</span>);<span class="pl-c">//端口为2010，队列最长为10</span></pre></div>
+
+<p><strong>常用成员方法</strong>
+<img src="http://static.zybuluo.com/XQF/k8kn8jr6vm1d8lnwvorbkwh3/image_1b31l4vj21p4f1fhninhjf317h89.png" alt="image_1b31l4vj21p4f1fhninhjf317h89.png-12.6kB"></p>
+
+<p>实例：</p>
+
+<div class="highlight highlight-source-java"><pre>
+<span class="pl-c">/**</span>
+<span class="pl-c"> * Created by XQF on 2016/12/3.</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">serverSocketTest</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">main</span>(<span class="pl-k">String</span>[] <span class="pl-v">args</span>) {
+        <span class="pl-smi">ServerSocket</span> serverSocket <span class="pl-k">=</span> <span class="pl-c1">null</span>;
+        <span class="pl-k">try</span> {
+            serverSocket <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">ServerSocket</span>(<span class="pl-c1">2010</span>);
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>服务器端口：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> serverSocket<span class="pl-k">.</span>getLocalPort());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>服务器地址：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> serverSocket<span class="pl-k">.</span>getInetAddress());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>服务器套接字：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> serverSocket<span class="pl-k">.</span>getLocalSocketAddress());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>是否绑定连接：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> serverSocket<span class="pl-k">.</span>isBound());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>是否关闭：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> serverSocket<span class="pl-k">.</span>isClosed());
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>服务器套接字详情：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> serverSocket<span class="pl-k">.</span>toString());
+        } <span class="pl-k">catch</span> (<span class="pl-smi">IOException</span> e) {
+            e<span class="pl-k">.</span>printStackTrace();
+        }
+    }
+}
+</pre></div>
+
+<h3>
+<a id="4tcp编程实例" class="anchor" href="#4tcp%E7%BC%96%E7%A8%8B%E5%AE%9E%E4%BE%8B" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.TCP编程实例</h3>
+
+<p><strong>BusinessPrococal.java</strong></p>
+
+<div class="highlight highlight-source-java"><pre>
+<span class="pl-c">/**</span>
+<span class="pl-c"> * Created by XQF on 2016/12/3.</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-en">BusinessProtocal</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-k">int</span> <span class="pl-c1">PAY_BILL</span> <span class="pl-k">=</span> <span class="pl-c1">1</span>;
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-k">int</span> <span class="pl-c1">ROAMING_SERVICE</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>;
+
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">paybill</span>();
+
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">roamingService</span>();
+}
+</pre></div>
+
+<blockquote>
+<p><strong>接口中不仅可以放方法，还可以放字符串常量</strong></p>
+</blockquote>
+
+<p><strong>MobileSever.java</strong></p>
+
+<div class="highlight highlight-source-java"><pre>
+<span class="pl-c">/**</span>
+<span class="pl-c"> * Created by XQF on 2016/12/3.</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MobileServer</span> <span class="pl-k">implements</span> <span class="pl-e">BusinessProtocal</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">ServerSocket</span> serverSocket;
+    <span class="pl-k">private</span> <span class="pl-smi">DataInputStream</span> in;
+    <span class="pl-k">private</span> <span class="pl-smi">DataOutputStream</span> out;
+    <span class="pl-k">private</span> <span class="pl-k">int</span> serviceId;
+    <span class="pl-k">private</span> <span class="pl-smi">Socket</span> socket;
+    <span class="pl-k">private</span> <span class="pl-k">int</span> fee;
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> str;
+
+    <span class="pl-k">public</span> <span class="pl-en">MobileServer</span>() {
+        <span class="pl-k">try</span> {
+            serverSocket <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">ServerSocket</span>(<span class="pl-c1">2010</span>);
+            <span class="pl-k">while</span> (<span class="pl-c1">true</span>) {
+                <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>服务器准备就绪，等待客户请求。。。。<span class="pl-pds">"</span></span>);
+                socket <span class="pl-k">=</span> serverSocket<span class="pl-k">.</span>accept();<span class="pl-c">//堵塞状态，除非有客户呼叫</span>
+                in <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">DataInputStream</span>(socket<span class="pl-k">.</span>getInputStream());
+                out <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">DataOutputStream</span>(socket<span class="pl-k">.</span>getOutputStream());
+                <span class="pl-k">while</span> (<span class="pl-c1">true</span>) {
+                    <span class="pl-k">try</span> {
+                        serviceId <span class="pl-k">=</span> in<span class="pl-k">.</span>readInt();<span class="pl-c">//读取放入“线路里的信息”</span>
+                        <span class="pl-k">switch</span> (serviceId) {
+                            <span class="pl-k">case</span> <span class="pl-c1">PAY_BILL</span><span class="pl-k">:</span>
+                                paybill();<span class="pl-c">//支付话费</span>
+                                <span class="pl-k">break</span>;
+                            <span class="pl-k">case</span> <span class="pl-c1">ROAMING_SERVICE</span><span class="pl-k">:</span>
+                                roamingService();<span class="pl-c">//办理漫游</span>
+                            <span class="pl-k">default</span><span class="pl-k">:</span>
+                                <span class="pl-k">break</span>;
+                        }
+                    } <span class="pl-k">catch</span> (<span class="pl-smi">IOException</span> e) {
+                        e<span class="pl-k">.</span>printStackTrace();
+                    }
+                }
+            }
+        } <span class="pl-k">catch</span> (<span class="pl-smi">IOException</span> e) {
+            e<span class="pl-k">.</span>printStackTrace();
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>客户<span class="pl-pds">"</span></span> <span class="pl-k">+</span> socket<span class="pl-k">.</span>getInetAddress()<span class="pl-k">.</span>getHostName() <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>业务办理完毕。已经离开了。。。。<span class="pl-pds">"</span></span>);
+        }
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">paybill</span>() {
+        <span class="pl-k">try</span> {
+            fee <span class="pl-k">=</span> in<span class="pl-k">.</span>readInt();
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>正在处理用户<span class="pl-pds">"</span></span> <span class="pl-k">+</span> socket<span class="pl-k">.</span>getInetAddress()<span class="pl-k">.</span>getHostName() <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>预交饿的<span class="pl-pds">"</span></span> <span class="pl-k">+</span> fee <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>元话费请求！<span class="pl-pds">"</span></span>);
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>交费处理完毕！<span class="pl-pds">"</span></span>);
+            out<span class="pl-k">.</span>writeUTF(<span class="pl-s"><span class="pl-pds">"</span>尊敬的客户，你已经成功预交了 <span class="pl-pds">"</span></span> <span class="pl-k">+</span> fee <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span> 元话费<span class="pl-pds">"</span></span>);
+            <span class="pl-smi">Thread</span><span class="pl-k">.</span>sleep(<span class="pl-c1">1000</span>);
+            out<span class="pl-k">.</span>flush();
+        } <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> e) {
+            e<span class="pl-k">.</span>printStackTrace();
+        }
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">roamingService</span>() {
+        <span class="pl-k">try</span> {
+            str <span class="pl-k">=</span> in<span class="pl-k">.</span>readUTF();
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>正在处理用户<span class="pl-pds">"</span></span> <span class="pl-k">+</span> socket<span class="pl-k">.</span>getInetAddress()<span class="pl-k">.</span>getHostName() <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>将手机漫游到 <span class="pl-pds">"</span></span> <span class="pl-k">+</span> str <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>的请求<span class="pl-pds">"</span></span>);
+            out<span class="pl-k">.</span>writeUTF(<span class="pl-s"><span class="pl-pds">"</span>尊敬的用户，你的手机已经漫游到<span class="pl-pds">"</span></span> <span class="pl-k">+</span> str <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>了<span class="pl-pds">"</span></span>);
+            <span class="pl-smi">Thread</span><span class="pl-k">.</span>sleep(<span class="pl-c1">1000</span>);
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>漫游处理完毕<span class="pl-pds">"</span></span>);
+            out<span class="pl-k">.</span>flush();
+        } <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> e) {
+            e<span class="pl-k">.</span>printStackTrace();
+        }
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">main</span>(<span class="pl-k">String</span>[] <span class="pl-v">args</span>) {
+        <span class="pl-k">new</span> <span class="pl-smi">MobileServer</span>();
+    }
+}
+</pre></div>
+
+<blockquote>
+<p><strong>考虑为什么要使用DataInputStream和DataOutputStream？因为我们的选择模式中有数字，根据数字来判断是选择哪一项服务，只有这个流有readInt()方法，而且还能输出输入字符串。。。总结一下整个过程，首先在服务器端建立一个ServerSocket,然后设置无限循环,调用accept()方法来获取可能的请求，，accept()方法的返回结果是一个Socket。用socket打开一个输入流，打开一个输出流。socket已经建立了一个链接，我们所有的传送数据操作都应该和socket有关。从输入流读取的数据就是客户机传来的请求或者数据，往输出流写入数据就是打算向客户机返回的信息。因此输入流中点出要什么信息，就往输出流中写什么信息。一旦有请求被接收就进入处理阶段。处理的时候，先从输入流中读出一个数字判断是办理什么业务，服务器办理业务，再将业务办理的结果返回到输出流中，返回给客户机。</strong></p>
+</blockquote>
+
+<p><strong>MobileClient.java</strong></p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-c">/**</span>
+<span class="pl-c"> * Created by XQF on 2016/12/3.</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MobileClient</span>  <span class="pl-k">implements</span> <span class="pl-e">BusinessProtocal</span>{
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> string ;
+    <span class="pl-k">private</span> <span class="pl-smi">DataInputStream</span> in;
+    <span class="pl-k">private</span> <span class="pl-smi">DataOutputStream</span> out;
+    <span class="pl-k">private</span> <span class="pl-smi">Socket</span> socket;
+    <span class="pl-k">public</span> <span class="pl-en">MobileClient</span>(){
+        <span class="pl-k">try</span> {
+            socket<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-smi">Socket</span>(<span class="pl-s"><span class="pl-pds">"</span>192.168.177.2<span class="pl-pds">"</span></span>,<span class="pl-c1">2010</span>);
+            in<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-smi">DataInputStream</span>(socket<span class="pl-k">.</span>getInputStream());
+            out<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-smi">DataOutputStream</span>(socket<span class="pl-k">.</span>getOutputStream());
+            paybill();
+            <span class="pl-smi">Thread</span><span class="pl-k">.</span>sleep(<span class="pl-c1">500</span>);<span class="pl-c">//假装很耗时</span>
+            roamingService();
+        } <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> e) {
+            e<span class="pl-k">.</span>printStackTrace();
+        }
+
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">paybill</span>() {
+        <span class="pl-k">try</span> {
+            out<span class="pl-k">.</span>writeInt(<span class="pl-c1">PAY_BILL</span>);
+            out<span class="pl-k">.</span>writeInt(<span class="pl-c1">200</span>);
+            out<span class="pl-k">.</span>flush();<span class="pl-c">//</span>
+
+
+            <span class="pl-c">//得到的返回 </span>
+            string<span class="pl-k">=</span>in<span class="pl-k">.</span>readUTF();
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>来自服务员：<span class="pl-pds">"</span></span><span class="pl-k">+</span>string);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">IOException</span> e) {
+            e<span class="pl-k">.</span>printStackTrace();
+        }
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">roamingService</span>() {
+        <span class="pl-k">try</span> {
+            out<span class="pl-k">.</span>writeInt(<span class="pl-c1">ROAMING_SERVICE</span>);
+            out<span class="pl-k">.</span>writeUTF(<span class="pl-s"><span class="pl-pds">"</span>香港<span class="pl-pds">"</span></span>);
+            out<span class="pl-k">.</span>flush();
+<span class="pl-c">// 得到的返回</span>
+            string<span class="pl-k">=</span>in<span class="pl-k">.</span>readUTF();
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>来自服务员：<span class="pl-pds">"</span></span><span class="pl-k">+</span>string);
+
+        } <span class="pl-k">catch</span> (<span class="pl-smi">IOException</span> e) {
+            e<span class="pl-k">.</span>printStackTrace();
+        }
+    }
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">main</span>(<span class="pl-k">String</span>[] <span class="pl-v">args</span>) {
+        <span class="pl-k">new</span> <span class="pl-smi">MobileClient</span>();
+    }
+}
+</pre></div>
+
+<blockquote>
+<p><strong>要总结的就是客户机和服务器都是要一个输出流一个输入流的，这里的代码设计很是喜欢。还有就是见识到了接口的魅力。不仅充当了Config的角色（提供常量字符串），还增加了代码的紧凑性，看上去是环环相扣的，也是多态的魅力。接口的不同实现，使得代码变得如此的好懂，联系也强，佩服。还有就是输出流要刷新flush一下。再来解释一下DataInputStream，感觉也只是适合数据量少且类型多样的数据传送。服务器的监听一定要处于无限循环中</strong></p>
+</blockquote>
+
+<h2>
+<a id="四udp程序设计" class="anchor" href="#%E5%9B%9Budp%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>四.UDP程序设计</h2>
+
+<p>UDP是一种无连接的网络通信机制，更像是邮件和发短信的通信方式</p>
+
+<h3>
+<a id="1数据报通信" class="anchor" href="#1%E6%95%B0%E6%8D%AE%E6%8A%A5%E9%80%9A%E4%BF%A1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.数据报通信</h3>
+
+<p>数据报是指起始点和目的地都能使用无连接网络服务的网络层的信息单元。UDP不可靠但是快速，因此在海量数据但是不精密的传送服务中占有重要地位，比如看个视频，视频在路上丢了几帧好像并没有什么大碍。
+Java通过两个类实现UDP协议顶层的数据报，一个是<strong>DatsgramPackets</strong>,对象是数据容器，<strong>DatagramSocket</strong>是用来发送和接收DatagramPackets的套接字。采用UDP通信时，首先将要传输的数据打包，将打包好的数据传送给目的地。目的地接收数据包，然后查看数据包中的内容。</p>
+
+<h3>
+<a id="2datagrampacket" class="anchor" href="#2datagrampacket" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.DatagramPacket</h3>
+
+<p>要发送或者接收数据包，需要用DatagramPacket将数据内容打包，即用DatagramPacket创建一个对象，称为数据包。</p>
+
+<h4>
+<a id="a构造方法" class="anchor" href="#a%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>a.构造方法</h4>
+
+<p><img src="http://static.zybuluo.com/XQF/wheow3hexy89d10opna0m7e7/image_1b31skmjvrpp1omihq2bph1g58m.png" alt="image_1b31skmjvrpp1omihq2bph1g58m.png-35.7kB"></p>
+
+<h4>
+<a id="b常用方法" class="anchor" href="#b%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>b.常用方法</h4>
+
+<p><img src="http://static.zybuluo.com/XQF/rftmsqvj92khek776jt46g6e/image_1b31sn21i11cdk2s1l25s1fi4n13.png" alt="image_1b31sn21i11cdk2s1l25s1fi4n13.png-45kB"></p>
+
+<h3>
+<a id="3datagramsocket" class="anchor" href="#3datagramsocket" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3.DatagramSocket</h3>
+
+<p>DatagramSocket是用来发送和接收数据包的套接字，负责将数据包发送到目的地，或从目的地接收数据包。</p>
+
+<h4>
+<a id="a构造方法-1" class="anchor" href="#a%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>a.构造方法</h4>
+
+<p><img src="http://static.zybuluo.com/XQF/g9xiwxk52ecvku6q8zsgsc0r/image_1b31svvivdk3ve81ine1bqbkjs1g.png" alt="image_1b31svvivdk3ve81ine1bqbkjs1g.png-27.9kB"></p>
+
+<h4>
+<a id="b常用方法-1" class="anchor" href="#b%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>b.常用方法</h4>
+
+<h4>
+<a id="c总结" class="anchor" href="#c%E6%80%BB%E7%BB%93" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>c.总结</h4>
+
+<p>简单实例（将“你好”打包并发送）：</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">byte</span>[] buff<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>你好<span class="pl-pds">"</span></span><span class="pl-k">.</span>getBytes();
+<span class="pl-smi">InetAddress</span> inetAddress<span class="pl-k">=</span><span class="pl-smi">InetAddress</span><span class="pl-k">.</span>getByName(<span class="pl-s"><span class="pl-pds">"</span>192.168.0.107<span class="pl-pds">"</span></span>);<span class="pl-c">//I地址和域名都可以</span>
+<span class="pl-smi">DatagramPocket</span> dataPacket<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-smi">DatagramPocket</span>(buff,buff<span class="pl-k">.</span>length,inetAddress,<span class="pl-c1">2018</span>);
+<span class="pl-smi">DatagramSocket</span> sendSocket<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-smi">DatagramSocket</span>();
+sendSocket<span class="pl-k">.</span>send(dataPacket);</pre></div>
+
+<p>简单实例（取出外界发送给2018端口的数据包中的内容）：</p>
+
+<div class="highlight highlight-source-java"><pre>
+<span class="pl-k">byte</span> []buff<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-smi">byte</span>[<span class="pl-c1">8192</span>];
+<span class="pl-smi">DatagramPocket</span> receivePacket<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-smi">DatagramPocket</span>(buff,buff<span class="pl-k">.</span>length);
+<span class="pl-smi">DatagramSocket</span> receiveSocket<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-smi">DatagramSocket</span>(<span class="pl-c1">2018</span>);
+receiveSocket<span class="pl-k">.</span>receive(receivePacket);
+<span class="pl-k">int</span> length<span class="pl-k">=</span>receivePacket<span class="pl-k">.</span>getLength();
+<span class="pl-smi">String</span> message<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-smi">String</span>(receivePacket<span class="pl-k">.</span>getData(),<span class="pl-c1">0</span>,length);
+<span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(message);</pre></div>
+
+<h3>
+<a id="4udp编程实例" class="anchor" href="#4udp%E7%BC%96%E7%A8%8B%E5%AE%9E%E4%BE%8B" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4.UDP编程实例</h3>
+
+<h4>
+<a id="audpcollectionjava" class="anchor" href="#audpcollectionjava" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>a.UDPCollection.java</h4>
+
+<p>两个主机的界面几乎是一样的，设置为公共代码复用。这就是核心代码了</p>
+
+<div class="highlight highlight-source-java"><pre>
+<span class="pl-c">/**</span>
+<span class="pl-c"> * Created by XQF on 2016/12/4.</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">UDPCollection</span> <span class="pl-k">extends</span> <span class="pl-e">JFrame</span> <span class="pl-k">implements</span> <span class="pl-e">Runnable</span>, <span class="pl-e">ActionListener</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">JTextField</span> sendMsg;<span class="pl-c">//信息内容文本框</span>
+    <span class="pl-k">private</span> <span class="pl-smi">JTextArea</span> receivedMsg;<span class="pl-c">//接收消息显示区</span>
+    <span class="pl-k">private</span> <span class="pl-smi">JButton</span> sendBtn;
+    <span class="pl-k">private</span> <span class="pl-smi">Container</span> container;
+    <span class="pl-k">private</span> <span class="pl-smi">Model</span> model;
+
+
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> titleString;
+    <span class="pl-k">private</span> <span class="pl-k">int</span> inPort;
+    <span class="pl-k">private</span> <span class="pl-k">int</span> outPort;
+
+    <span class="pl-k">public</span> <span class="pl-en">UDPCollection</span>(<span class="pl-smi">Model</span> <span class="pl-v">model</span>) {
+        <span class="pl-v">this</span><span class="pl-k">.</span>model <span class="pl-k">=</span> model;
+        container <span class="pl-k">=</span> <span class="pl-v">this</span><span class="pl-k">.</span>getContentPane();
+        <span class="pl-v">this</span><span class="pl-k">.</span>setSize(<span class="pl-c1">400</span>, <span class="pl-c1">300</span>);
+        <span class="pl-v">this</span><span class="pl-k">.</span>setVisible(<span class="pl-c1">true</span>);
+        <span class="pl-v">this</span><span class="pl-k">.</span>setTitle(model<span class="pl-k">.</span>getTitleString());
+        container<span class="pl-k">.</span>setLayout(<span class="pl-k">new</span> <span class="pl-smi">BorderLayout</span>());<span class="pl-c">//给顶层容器的默认布局换成BorderLayout布局,不过顶层容器的默认布局就是这个呀，简直多此一举</span>
+
+
+<span class="pl-c">// 添加滑动面板，也就是中间的消息界面</span>
+        <span class="pl-smi">JScrollPane</span> centerPanel <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">JScrollPane</span>();<span class="pl-c">//新建滑动面板对象</span>
+        receivedMsg <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">JTextArea</span>();
+        centerPanel<span class="pl-k">.</span>setViewportView(receivedMsg);<span class="pl-c">//把文本编辑区放进滚动面板</span>
+        <span class="pl-c">// JScrollPanel centerPanel=new JScrollPanel(receivedMsg)</span>
+        container<span class="pl-k">.</span>add(centerPanel, <span class="pl-smi">BorderLayout</span><span class="pl-c1"><span class="pl-k">.</span>CENTER</span>);<span class="pl-c">//把滚动面板放在窗口最中间</span>
+
+<span class="pl-c">// 添加底部面板，也就是编辑消息和发送消息按钮的面板</span>
+        <span class="pl-smi">JPanel</span> bottomPanel <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">JPanel</span>();
+        <span class="pl-smi">JLabel</span> label <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">JLabel</span>(<span class="pl-s"><span class="pl-pds">"</span>编辑信息<span class="pl-pds">"</span></span>);<span class="pl-c">//创建一个标签提示栏对象</span>
+        sendMsg <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">JTextField</span>(<span class="pl-c1">20</span>);<span class="pl-c">//创建一个文本编辑框用于编辑消息，大小为20为列数，。大概也是指的宽度了。</span>
+        sendBtn <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">JButton</span>(<span class="pl-s"><span class="pl-pds">"</span>发送消息<span class="pl-pds">"</span></span>);
+        bottomPanel<span class="pl-k">.</span>add(label);
+        bottomPanel<span class="pl-k">.</span>add(sendMsg);
+        bottomPanel<span class="pl-k">.</span>add(sendBtn);
+        container<span class="pl-k">.</span>add(bottomPanel, <span class="pl-smi">BorderLayout</span><span class="pl-c1"><span class="pl-k">.</span>SOUTH</span>);
+
+<span class="pl-c">//下面对事件进行处理</span>
+
+        sendBtn<span class="pl-k">.</span>addActionListener(<span class="pl-v">this</span>);<span class="pl-c">//注册点击按钮事件</span>
+        sendMsg<span class="pl-k">.</span>addActionListener(<span class="pl-v">this</span>);<span class="pl-c">//注册聊天栏动作事件</span>
+
+<span class="pl-c">// 新开一个线程用于接收数据</span>
+        <span class="pl-smi">Thread</span> t <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Thread</span>(<span class="pl-v">this</span>);<span class="pl-c">//因为实现了runable接口</span>
+        t<span class="pl-k">.</span>start();
+<span class="pl-c">//点击退出就退出</span>
+        <span class="pl-v">this</span><span class="pl-k">.</span>setDefaultCloseOperation(<span class="pl-smi">JFrame</span><span class="pl-c1"><span class="pl-k">.</span>EXIT_ON_CLOSE</span>);
+    }
+
+
+    <span class="pl-c">//点击事件处理</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">actionPerformed</span>(<span class="pl-smi">ActionEvent</span> <span class="pl-v">event</span>) {
+        <span class="pl-k">byte</span>[] buffer <span class="pl-k">=</span> sendMsg<span class="pl-k">.</span>getText()<span class="pl-k">.</span>trim()<span class="pl-k">.</span>getBytes();
+        <span class="pl-smi">InetAddress</span> destAddress <span class="pl-k">=</span> <span class="pl-c1">null</span>;<span class="pl-c">//先拿到一个主机地址，创建一个InetAddress对象，这个对象在后续创建DatagramPacket有用</span>
+        <span class="pl-k">try</span> {
+            destAddress <span class="pl-k">=</span> <span class="pl-smi">InetAddress</span><span class="pl-k">.</span>getByName(<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">UnknownHostException</span> e) {
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>找不到主机！<span class="pl-pds">"</span></span> <span class="pl-k">+</span> e<span class="pl-k">.</span>getMessage());
+        }
+
+        <span class="pl-c">//构造数据包一直都在用这个方法，相对来说简单，把端口，大小什么的都说明了,</span>
+        <span class="pl-c">//将buff.length()大小的数据buff发送到目的地址为destAddress的2012端口处</span>
+        <span class="pl-smi">DatagramPacket</span> dataPacket <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">DatagramPacket</span>(buffer, buffer<span class="pl-k">.</span>length, destAddress, model<span class="pl-k">.</span>getOutPort());
+
+        <span class="pl-c">//创建套接字对象，准备打开管子放水了,这个类的构造方法还是比价简单，此时是发送就不需要绑定端口，所以使用这种构造方法</span>
+        <span class="pl-smi">DatagramSocket</span> sendSocket <span class="pl-k">=</span> <span class="pl-c1">null</span>;
+        <span class="pl-k">try</span> {
+            sendSocket <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">DatagramSocket</span>();
+        } <span class="pl-k">catch</span> (<span class="pl-smi">SocketException</span> e) {
+            e<span class="pl-k">.</span>printStackTrace();
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>套接字创建错误！<span class="pl-pds">"</span></span>);
+        }
+
+<span class="pl-c">//        receivedMsg.append("==================本地消息==================\n");</span>
+<span class="pl-c">//        receivedMsg.append("数据报目标主机地址：" + dataPacket.getAddress() + "\n");//为了显摆一下在数据包里进行操作，InetAddress对象也可以获得。</span>
+<span class="pl-c">//        receivedMsg.append("数据报目标端口：" + dataPacket.getPort() + "\n");</span>
+<span class="pl-c">//        receivedMsg.append("数据报长度：" + dataPacket.getLength() + "\n");</span>
+
+        receivedMsg<span class="pl-k">.</span>append(model<span class="pl-k">.</span>getTitleString()<span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">"</span>发出：<span class="pl-pds">"</span></span><span class="pl-k">+</span>sendMsg<span class="pl-k">.</span>getText()<span class="pl-k">.</span>trim()<span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\n</span><span class="pl-pds">"</span></span>);
+        <span class="pl-c">//发送数据报</span>
+        <span class="pl-k">try</span> {
+            sendSocket<span class="pl-k">.</span>send(dataPacket);
+        } <span class="pl-k">catch</span> (<span class="pl-smi">IOException</span> e) {
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>数据报发送错误！<span class="pl-pds">"</span></span>);
+        }
+
+
+        <span class="pl-c">//将消息编辑界面置空，看上去是不见了</span>
+        sendMsg<span class="pl-k">.</span>setText(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>);
+    }
+
+
+    <span class="pl-c">//子线程要干的事情,接收数据</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">run</span>() {
+        <span class="pl-smi">DatagramPacket</span> receivedPacket <span class="pl-k">=</span> <span class="pl-c1">null</span>;
+        <span class="pl-smi">DatagramSocket</span> receivedSocket <span class="pl-k">=</span> <span class="pl-c1">null</span>;
+        <span class="pl-k">byte</span>[] buffer <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">byte</span>[<span class="pl-c1">8192</span>];
+
+        <span class="pl-k">try</span> {
+
+            <span class="pl-c">//发送的时候使用四个参数的构造方法，接收的时候使用两个参数的构造方法</span>
+            receivedPacket <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">DatagramPacket</span>(buffer, buffer<span class="pl-k">.</span>length);
+            <span class="pl-c">//接收的Socket与端口绑定，就是为了接收这个端口的数据</span>
+            receivedSocket <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">DatagramSocket</span>(model<span class="pl-k">.</span>getInPort());
+        } <span class="pl-k">catch</span> (<span class="pl-smi">SocketException</span> e) {
+            e<span class="pl-k">.</span>printStackTrace();
+        }
+        <span class="pl-k">while</span> (<span class="pl-c1">true</span>) {
+            <span class="pl-c">//如果套接字为空就跳出死循环,这里很奇怪，既然套接字里面都不为空了为什么在后面才来获取数据包</span>
+            <span class="pl-k">if</span> (receivedSocket <span class="pl-k">==</span> <span class="pl-c1">null</span>) {
+                <span class="pl-k">break</span>;
+            } <span class="pl-k">else</span> {
+                <span class="pl-k">try</span> {
+                    receivedSocket<span class="pl-k">.</span>receive(receivedPacket);<span class="pl-c">//接收数据，这句过后receivedPacket就不是空的了</span>
+                } <span class="pl-k">catch</span> (<span class="pl-smi">IOException</span> e) {
+                    e<span class="pl-k">.</span>printStackTrace();
+                }
+                <span class="pl-k">int</span> length <span class="pl-k">=</span> receivedPacket<span class="pl-k">.</span>getLength();<span class="pl-c">//获取内容长度只能在数据包里获取，不能在套接字，。，。套接字只是一条路。</span>
+                <span class="pl-smi">InetAddress</span> address <span class="pl-k">=</span> receivedPacket<span class="pl-k">.</span>getAddress();<span class="pl-c">//拿到此套接字连接的地址，即获取发送人的地址</span>
+                <span class="pl-k">int</span> port <span class="pl-k">=</span> receivedSocket<span class="pl-k">.</span>getPort();<span class="pl-c">//获取发送者发送数据的端口号</span>
+
+                <span class="pl-c">//将获取到的数据转换为字符串</span>
+                <span class="pl-smi">String</span> message <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">String</span>(receivedPacket<span class="pl-k">.</span>getData(), <span class="pl-c1">0</span>, length);<span class="pl-c">//查了一下API文档，里面的String真的有这个构造方法</span>
+<span class="pl-c">//                receivedMsg.append("==================异地消息==================");</span>
+<span class="pl-c">//                receivedMsg.append("收到数据长度：" + length + "\n");</span>
+<span class="pl-c">//                receivedMsg.append("收到数据来自：" + address + " 端口：" + port + "\n");</span>
+<span class="pl-c">//                receivedMsg.append("收到数据是：" + message + "\n");</span>
+                receivedMsg<span class="pl-k">.</span>append(model<span class="pl-k">.</span>getTitleString() <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>收到：<span class="pl-pds">"</span></span> <span class="pl-k">+</span> message<span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\n</span><span class="pl-pds">"</span></span>);
+            }
+        }
+    }
+}
+</pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/XQFHNB/NetWorkProgramming">Networkprogramming</a> is maintained by <a href="https://github.com/XQFHNB">XQFHNB</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
